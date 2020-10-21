@@ -12,4 +12,6 @@ public interface PessoaService {
 	Pessoa criar(Pessoa pessoa);
 
 	Optional<Pessoa> buscarPorCodigo(Long codigo);
+	
+	void excluir(Long id);
 }

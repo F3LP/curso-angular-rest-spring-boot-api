@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.algamoneyapi.model.Pessoa;
@@ -31,7 +32,20 @@ public class PessoaServiceImpl implements PessoaService {
 
 	@Override
 	public Optional<Pessoa> buscarPorCodigo(Long codigo) {
-		return repository.findById(codigo);
+		
+		Optional<Pessoa> pessoaEncontrada = repository.findById(codigo);
+		
+		if(pessoaEncontrada.isPresent()) {
+			return pessoaEncontrada;
+		} else {
+			throw new EmptyResultDataAccessException(1);
+		}
+		
+	}
+
+	@Override
+	public void excluir(Long id) {
+		repository.deleteById(id);
 	}
 
 	
